@@ -11,6 +11,7 @@ import com.mytodo.mytodo.databinding.FragmentDashboardBinding
 import com.mytodo.mytodo.dialog.DashboardTutorialDialog
 import com.mytodo.mytodo.ui.main.sidemenu.activity.MyTaskActivity
 import com.mytodo.mytodo.ui.main.sidemenu.adapter.DashBoardAdapter
+import com.mytodo.mytodo.utils.AppPreferences.prefIsDashboardTutorial
 import com.mytodo.mytodo.utils.Constants
 import com.mytodo.mytodo.utils.EnumFromPage
 
@@ -29,8 +30,13 @@ class fragment_dashboard : BaseFragment() {
 
     override fun initData() {
 
-        val dialog = DashboardTutorialDialog()
-        dialog.show(parentFragmentManager, "TAG")
+        if(!prefIsDashboardTutorial)
+        {
+            val dialog = DashboardTutorialDialog()
+            dialog.show(parentFragmentManager, "TAG")
+            prefIsDashboardTutorial = true
+        }
+
     }
 
     override fun setupUI() {

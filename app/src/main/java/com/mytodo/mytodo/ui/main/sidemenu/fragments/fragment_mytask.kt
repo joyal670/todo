@@ -12,6 +12,7 @@ import com.mytodo.mytodo.databinding.FragmentMytaskBinding
 import com.mytodo.mytodo.dialog.MyTaskTutorialDialog
 import com.mytodo.mytodo.ui.main.sidemenu.activity.MyTaskActivity
 import com.mytodo.mytodo.ui.main.sidemenu.adapter.MyTaskPendingAdapter
+import com.mytodo.mytodo.utils.AppPreferences.prefIsTaskTutorial
 import com.mytodo.mytodo.utils.Constants
 import com.mytodo.mytodo.utils.EnumFromPage
 
@@ -30,8 +31,13 @@ class fragment_mytask : BaseFragment() {
 
     override fun initData() {
 
-        val dialog = MyTaskTutorialDialog()
-        dialog.show(parentFragmentManager, "TAG")
+        if(!prefIsTaskTutorial)
+        {
+            val dialog = MyTaskTutorialDialog()
+            dialog.show(parentFragmentManager, "TAG")
+            prefIsTaskTutorial = true
+        }
+
 
     }
 

@@ -107,39 +107,23 @@
         android:layout_marginBottom="@dimen/margin_50dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <com.shobhitpuri.custombuttons.GoogleSignInButton
+            android:id="@+id/ivGoogle"
+            android:layout_width="@dimen/margin_300dp"
+            android:layout_height="@dimen/margin_60dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/google_sign_in"
+            app:isDarkTheme="false" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivGoogle"
-                android:layout_width="@dimen/margin_50dp"
-                android:layout_height="@dimen/margin_50dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-                app:srcCompat="@drawable/ic_google"
-                app:strokeColor="@color/black"
-                android:layout_marginEnd="@dimen/margin_15dp"
-                app:strokeWidth="1dp" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivFacebook"
-                android:layout_width="@dimen/margin_50dp"
-                android:layout_height="@dimen/margin_50dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:layout_marginStart="@dimen/margin_15dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-                app:srcCompat="@drawable/ic_facebook_icon"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp" />
-
-
-        </LinearLayout>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/ivFacebook"
+            android:layout_width="@dimen/margin_300dp"
+            android:layout_height="@dimen/margin_60dp"
+            android:paddingTop="@dimen/margin_15dp"
+            android:paddingBottom="@dimen/margin_15dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginBottom="@dimen/margin_30dp" />
 
     </LinearLayout>
 

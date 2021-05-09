@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.mytodo.mytodo.R
 import com.mytodo.mytodo.base.BaseFragment
 import com.mytodo.mytodo.databinding.FragmentProfileBinding
 import com.mytodo.mytodo.ui.main.sidemenu.adapter.ViewPagerAdapter
+import com.mytodo.mytodo.utils.AppPreferences.prefUserDisplayName
+import com.mytodo.mytodo.utils.AppPreferences.prefUserEmail
+import com.mytodo.mytodo.utils.AppPreferences.prefUserProfilePic
 import java.util.*
 
 
@@ -35,6 +39,9 @@ class fragment_profile : BaseFragment() {
     }
 
     override fun setupUI() {
+
+        refreshUI()
+
         mViewPagerAdapter = ViewPagerAdapter(requireContext(), images)
         binding.vpSlider.adapter = mViewPagerAdapter
 
@@ -48,6 +55,7 @@ class fragment_profile : BaseFragment() {
         }
         timer = Timer()
         timer!!.schedule(timerTask, 2000, 2000)
+
     }
 
     override fun setupViewModel() {
@@ -57,6 +65,19 @@ class fragment_profile : BaseFragment() {
     }
 
     override fun onClicks() {
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshUI()
+        }
+
+    }
+
+    private fun refreshUI() {
+        binding.swipeRefreshLayout.setRefreshing(false)
+
+        Glide.with(requireActivity()).load(prefUserProfilePic).into(binding.ivProfilePic)
+        binding.tvProfileName.text = prefUserDisplayName
+        binding.tvProfileEmail.text = prefUserEmail
     }
 
 }

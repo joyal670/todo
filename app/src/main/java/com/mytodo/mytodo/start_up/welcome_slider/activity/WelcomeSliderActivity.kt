@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.mytodo.mytodo.R
@@ -15,6 +16,9 @@ import com.mytodo.mytodo.start_up.welcome_slider.adapter.IntroSliderAdapter
 import com.mytodo.mytodo.start_up.welcome_slider.fragment.Intro1Fragment
 import com.mytodo.mytodo.start_up.welcome_slider.fragment.Intro2Fragment
 import com.mytodo.mytodo.start_up.welcome_slider.fragment.Intro3Fragment
+import com.mytodo.mytodo.ui.main.home.activity.DashboardActivity
+import com.mytodo.mytodo.utils.AppPreferences.prefIsLogin
+import com.mytodo.mytodo.utils.AppPreferences.prefIsWelcomeSlider
 
 class WelcomeSliderActivity : BaseActivity<ActivityWelcomeSliderBinding>()
 {
@@ -58,6 +62,7 @@ class WelcomeSliderActivity : BaseActivity<ActivityWelcomeSliderBinding>()
             }
         })
         binding.tvSkip.setOnClickListener {
+            prefIsWelcomeSlider = true
             startActivity(Intent(this, AuthActivity::class.java))
             finish()
         }
@@ -66,6 +71,7 @@ class WelcomeSliderActivity : BaseActivity<ActivityWelcomeSliderBinding>()
             if (position < fragmentList.lastIndex) {
                 binding.vpIntroSlider.currentItem = position + 1
             } else {
+                prefIsWelcomeSlider = true
                 startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             }
@@ -89,6 +95,26 @@ class WelcomeSliderActivity : BaseActivity<ActivityWelcomeSliderBinding>()
     }
 
     override fun onClicks() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(prefIsWelcomeSlider)
+        {
+            if(prefIsLogin)
+            {
+                val intent = Intent(this, DashboardActivity::class.java)
+                startActivity(intent)
+                ActivityCompat.finishAffinity(this)
+            }
+            else
+            {
+                startActivity(Intent(this, AuthActivity::class.java))
+                finish()
+                ActivityCompat.finishAffinity(this)
+            }
+        }
 
     }
 }
