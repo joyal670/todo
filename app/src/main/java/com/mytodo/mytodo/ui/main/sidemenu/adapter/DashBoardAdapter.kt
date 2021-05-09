@@ -6,20 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.mytodo.mytodo.databinding.RecycleDashboardListItemBinding
+import com.mytodo.mytodo.ui.main.sidemenu.realm.model.TaskModel
+import io.realm.RealmResults
 import java.util.*
 
 
-class DashBoardAdapter : RecyclerView.Adapter<DashBoardAdapter.ViewHold>() {
+class DashBoardAdapter(private var taskList: RealmResults<TaskModel>?) : RecyclerView.Adapter<DashBoardAdapter.ViewHold>() {
     private var context: Context? = null
-    private val taskList1 = listOf(
-        "lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do",
-        "lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip_ex_ea_commodo_consequat_duis_aute_irure_dolor_in_reprehenderit_in_voluptate_velit_esse_cillum_dolore_eu_fugiat_nulla_pariatur",
-        "tempor_incididunt_ut_labore_et_dolore_magna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exer",
-        "Assignment Deadline",
-        "Deadline",
-        "agna_aliqua_ut_enim_ad_minim_veniam_quis_nostrud_exercitation_ullamco_laboris_nisi_ut_aliquip"
-        )
-
 
     class ViewHold(var binding: RecycleDashboardListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -32,7 +25,7 @@ class DashBoardAdapter : RecyclerView.Adapter<DashBoardAdapter.ViewHold>() {
     }
 
     override fun getItemCount(): Int {
-        return taskList1.size
+        return taskList!!.size
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int)
@@ -48,6 +41,7 @@ class DashBoardAdapter : RecyclerView.Adapter<DashBoardAdapter.ViewHold>() {
             lp.flexGrow = `val`.toFloat()
             lp.flexShrink = 1f
         }
-        holder.binding.rvDashboardDes.text = taskList1[position]
+        holder.binding.tvTaskName.text = taskList?.get(position)!!.title
+        holder.binding.rvDashboardDes.text = taskList!![position]!!.description
     }
 }

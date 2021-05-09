@@ -14,7 +14,15 @@ import com.mytodo.mytodo.R
 import com.mytodo.mytodo.base.BaseFragment
 
 import com.mytodo.mytodo.databinding.FragmentAddtaskBinding
+import com.mytodo.mytodo.ui.main.sidemenu.realm.model.TaskModel
+import com.mytodo.mytodo.utils.AppPreferences.prefUserDisplayName
+import com.mytodo.mytodo.utils.AppPreferences.prefUserEmail
+import com.mytodo.mytodo.utils.AppPreferences.prefUserID
+import com.mytodo.mytodo.utils.AppPreferences.prefUserProfilePic
+import com.mytodo.mytodo.utils.Toaster
 import com.mytodo.mytodo.utils.replaceFragment
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +30,9 @@ import java.util.*
 class fragment_addtask : BaseFragment()
 {
     private lateinit var binding: FragmentAddtaskBinding
+    private var realm: Realm? = null
+    private var dataModel : TaskModel? = null
+
     val Time = arrayOf(
         "1:00am",
         "1:15am",
@@ -124,12 +135,15 @@ class fragment_addtask : BaseFragment()
     }
 
     override fun initData() {
+        realm = Realm.getDefaultInstance()
+        dataModel = TaskModel()
     }
 
     override fun setupUI() {
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, Time)
         val sdf = SimpleDateFormat("EEE, MMM d, yyyy", Locale.getDefault())
+        val sdf_normal = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val currentDate = sdf.format(Date())
 
         val bottom = BottomSheetDialog(requireContext(),  R.style.ThemeOverlay_App_BottomSheetDialog)
@@ -139,11 +153,13 @@ class fragment_addtask : BaseFragment()
         val bottomSheet : View = this.layoutInflater.inflate(R.layout.layout_addtask, null)
 
         val close =  bottomSheet.findViewById<ImageView>(R.id.ivClose)
+        val tvTitle =  bottomSheet.findViewById<EditText>(R.id.tvTitle) as EditText
         val current_date = bottomSheet.findViewById(R.id.tvcurrent_date) as TextView
         val StartTime = bottomSheet.findViewById(R.id.selectStartTime) as Spinner
         val EndTime = bottomSheet.findViewById(R.id.selectEndTime) as Spinner
         val btAddTask = bottomSheet.findViewById(R.id.btAddTask) as MaterialButton
         val tvEndDate = bottomSheet.findViewById(R.id.tvEndDate) as EditText
+        val tvDesc = bottomSheet.findViewById(R.id.tvDesc) as EditText
 
         current_date.text = currentDate
 
@@ -152,11 +168,6 @@ class fragment_addtask : BaseFragment()
         EndTime.adapter = adapter
 
         close.setOnClickListener {
-            bottom.dismiss()
-            activity?.onBackPressed()
-        }
-
-        btAddTask.setOnClickListener {
             bottom.dismiss()
             activity?.onBackPressed()
         }
@@ -174,6 +185,69 @@ class fragment_addtask : BaseFragment()
             }
 
             datePicker.show(parentFragmentManager, "MyTAG")
+        }
+
+        btAddTask.setOnClickListener {
+            val tempTitle = tvTitle.text.toString()
+            val tempTodayDate = sdf_normal.format(Date()).toString()
+            val tempEndDate = tvEndDate.text.toString()
+            val tempStartTime = StartTime.selectedItem.toString()
+            val tempEndTime = EndTime.selectedItem.toString()
+            val tempDesc = tvDesc.text.toString()
+
+            if(tempTitle.isEmpty() || tempEndDate.isEmpty() || tempDesc.isEmpty())
+            {
+                Toaster.showToast(requireContext(),"Some fields are missing", Toaster.State.ERROR, Toast.LENGTH_SHORT)
+                if(tempTitle.isEmpty())
+                {
+                    tvTitle.error = ""
+                }
+                if(tempEndDate.isEmpty())
+                {
+                    tvEndDate.error = ""
+                }
+                if(tempDesc.isEmpty())
+                {
+                    tvDesc.error = ""
+                }
+            }
+            else
+            {
+                try {
+                    val rnds = (0..1000).random()
+                    dataModel!!.id = rnds
+                    dataModel!!.title = tempTitle
+                    dataModel!!.startDate = tempTodayDate
+                    dataModel!!.endDate = tempEndDate
+                    dataModel!!.startTime = tempStartTime
+                    dataModel!!.endTime = tempEndTime
+                    dataModel!!.description = tempDesc
+                    dataModel!!.isCompleted = false
+
+                    dataModel!!.userId = prefUserID
+                    dataModel!!.userDisplayName = prefUserDisplayName
+                    dataModel!!.userProfilePic = prefUserProfilePic
+                    dataModel!!.userEmail = prefUserEmail
+
+                    realm!!.executeTransaction { realm -> realm.copyToRealm(dataModel) }
+
+                    Toaster.showToast(
+                        requireContext(),
+                        "Task Added",
+                        Toaster.State.SUCCESS,
+                        Toast.LENGTH_SHORT
+                    )
+
+                    bottom.dismiss()
+                    activity?.onBackPressed()
+
+                }catch (e:Exception){
+                    Toaster.showToast(requireContext(),"Something went wrong", Toaster.State.ERROR, Toast.LENGTH_SHORT)
+                }
+            }
+
+
+
         }
 
         bottom.setContentView(bottomSheet)
