@@ -162,13 +162,16 @@ dependencies {
     // side drawer
     implementation 'com.github.shrikanth7698:Custom-Navigation-Drawer:v0.0.1'
 
+    // image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
-    implementation 'uk.co.markormesher:android-fab:2.5.0'
-
+    // floating action button
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
+    // recyclerview swipe
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 
+    // flex box for auto sizing recyclerview
+    implementation 'com.google.android:flexbox:2.0.1'
 
 }

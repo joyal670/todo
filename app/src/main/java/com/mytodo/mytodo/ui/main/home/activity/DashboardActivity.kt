@@ -44,6 +44,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>(), ActivityList
         menuItems.add(MenuItem("Dashboard", R.drawable.ic_dashboard))
         menuItems.add(MenuItem("My Task", R.drawable.ic_task))
         menuItems.add(MenuItem("Calender", R.drawable.ic_schedule))
+        menuItems.add(MenuItem("Profile", R.drawable.ic_profile_user))
         menuItems.add(MenuItem("Notifications", R.drawable.ic_chat))
         menuItems.add(MenuItem("About", R.drawable.ic_information))
         menuItems.add(MenuItem("Logout", R.drawable.ic_logout))
@@ -111,13 +112,16 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding>(), ActivityList
                 2 -> {
                     fragmentClass = fragment_calender::class.java
                 }
-                3->{
-                    fragmentClass = fragment_notification::class.java
+                3 ->{
+                    fragmentClass = fragment_profile::class.java
                 }
                 4->{
-                    fragmentClass = fragment_about::class.java
+                    fragmentClass = fragment_notification::class.java
                 }
                 5->{
+                    fragmentClass = fragment_about::class.java
+                }
+                6->{
 
                 }
             }

@@ -1,30 +1,22 @@
 package com.mytodo.mytodo.ui.main.sidemenu.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mytodo.mytodo.R
+import com.google.android.flexbox.*
 import com.mytodo.mytodo.base.BaseFragment
 import com.mytodo.mytodo.databinding.FragmentDashboardBinding
-import com.mytodo.mytodo.ui.main.sidemenu.adapter.ViewPagerAdapter
-import java.util.*
-import kotlin.collections.ArrayList
+import com.mytodo.mytodo.dialog.DashboardTutorialDialog
+import com.mytodo.mytodo.ui.main.sidemenu.activity.MyTaskActivity
+import com.mytodo.mytodo.ui.main.sidemenu.adapter.DashBoardAdapter
+import com.mytodo.mytodo.utils.Constants
+import com.mytodo.mytodo.utils.EnumFromPage
 
 
-class fragment_dashboard : BaseFragment()
-{
+class fragment_dashboard : BaseFragment() {
     private lateinit var binding: FragmentDashboardBinding
-    var mViewPagerAdapter: ViewPagerAdapter? = null
-
-    var images = intArrayOf(
-        R.drawable.message_bg,
-        R.drawable.music_bg,
-        R.drawable.feed_bg,
-        R.drawable.message_bg
-    )
-
-    var timer: Timer? = null
 
     override fun setView(
         inflater: LayoutInflater?,
@@ -37,22 +29,25 @@ class fragment_dashboard : BaseFragment()
 
     override fun initData() {
 
+        val dialog = DashboardTutorialDialog()
+        dialog.show(parentFragmentManager, "TAG")
     }
 
     override fun setupUI() {
-        mViewPagerAdapter = ViewPagerAdapter(requireContext(), images)
-        binding.vpSlider.adapter = mViewPagerAdapter
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.justifyContent = JustifyContent.FLEX_START
+        layoutManager.alignItems = AlignItems.STRETCH
 
-        val timerTask: TimerTask = object : TimerTask() {
-            override fun run() {
-                binding.vpSlider.post(Runnable {
-                    binding.vpSlider.currentItem =
-                        (binding.vpSlider.currentItem + 1) % images.size
-                })
-            }
+        binding.rvDashboard.layoutManager = layoutManager
+        binding.rvDashboard.adapter = DashBoardAdapter()
+
+        binding.fbAddTask.setOnClickListener {
+            val intent = Intent(requireContext(), MyTaskActivity::class.java)
+            intent.putExtra(Constants.TASKTYPE, EnumFromPage.ADD_TASK.name)
+            startActivity(intent)
         }
-        timer = Timer()
-        timer!!.schedule(timerTask, 2000, 2000)
 
     }
 

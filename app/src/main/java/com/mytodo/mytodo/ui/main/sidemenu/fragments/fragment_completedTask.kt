@@ -2,21 +2,16 @@ package com.mytodo.mytodo.ui.main.sidemenu.fragments
 
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mytodo.mytodo.base.BaseFragment
 import com.mytodo.mytodo.databinding.FragmentCompletedTaskBinding
 import com.mytodo.mytodo.ui.main.sidemenu.adapter.MyTaskCompletedAdapter
 
 
-class fragment_completedTask : BaseFragment()
-{
+class fragment_completedTask : BaseFragment() {
     private lateinit var binding: FragmentCompletedTaskBinding
 
     override fun setView(

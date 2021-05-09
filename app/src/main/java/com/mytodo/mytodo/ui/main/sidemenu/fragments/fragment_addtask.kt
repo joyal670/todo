@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.mytodo.mytodo.R
 import com.mytodo.mytodo.base.BaseFragment
 
@@ -145,6 +143,7 @@ class fragment_addtask : BaseFragment()
         val StartTime = bottomSheet.findViewById(R.id.selectStartTime) as Spinner
         val EndTime = bottomSheet.findViewById(R.id.selectEndTime) as Spinner
         val btAddTask = bottomSheet.findViewById(R.id.btAddTask) as MaterialButton
+        val tvEndDate = bottomSheet.findViewById(R.id.tvEndDate) as EditText
 
         current_date.text = currentDate
 
@@ -160,6 +159,21 @@ class fragment_addtask : BaseFragment()
         btAddTask.setOnClickListener {
             bottom.dismiss()
             activity?.onBackPressed()
+        }
+
+        tvEndDate.setOnClickListener {
+            val builder = MaterialDatePicker.Builder.datePicker().setTitleText("Select End Date")
+            val datePicker = builder.build()
+            datePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                calendar.time = Date(it)
+                val tim = "${calendar.get(Calendar.DAY_OF_MONTH)}- " +
+                        "${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}"
+
+                tvEndDate.setText(tim)
+            }
+
+            datePicker.show(parentFragmentManager, "MyTAG")
         }
 
         bottom.setContentView(bottomSheet)

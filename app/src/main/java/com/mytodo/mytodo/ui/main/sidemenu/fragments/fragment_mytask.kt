@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mytodo.mytodo.base.BaseFragment
 import com.mytodo.mytodo.databinding.FragmentMytaskBinding
+import com.mytodo.mytodo.dialog.MyTaskTutorialDialog
 import com.mytodo.mytodo.ui.main.sidemenu.activity.MyTaskActivity
 import com.mytodo.mytodo.ui.main.sidemenu.adapter.MyTaskPendingAdapter
 import com.mytodo.mytodo.utils.Constants
@@ -28,6 +29,10 @@ class fragment_mytask : BaseFragment() {
     }
 
     override fun initData() {
+
+        val dialog = MyTaskTutorialDialog()
+        dialog.show(parentFragmentManager, "TAG")
+
     }
 
     override fun setupUI() {
@@ -52,11 +57,6 @@ class fragment_mytask : BaseFragment() {
             startActivity(intent)
         }
 
-        binding.fbAddTask.setOnClickListener {
-            val intent = Intent(requireContext(), MyTaskActivity::class.java)
-            intent.putExtra(Constants.TASKTYPE, EnumFromPage.ADD_TASK.name)
-            startActivity(intent)
-        }
 
     }
 
