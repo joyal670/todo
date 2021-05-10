@@ -1,49 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/athens_gray">
 
-    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/margin_10dp"
-        app:cardElevation="0dp"
         android:layout_marginStart="@dimen/margin_10dp"
-        android:layout_marginEnd="@dimen/margin_10dp"
         android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginEnd="@dimen/margin_10dp"
         android:layout_marginBottom="@dimen/margin_5dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:cardCornerRadius="@dimen/margin_10dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_10dp">
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="@dimen/margin_45dp"
+                android:id="@+id/timeBtn"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_55dp"
-                android:text="9"
-                app:backgroundTint="@color/pomegranate"
-                android:textColor="@color/white"
+                android:fontFamily="@font/barlow_medium"
                 android:gravity="center"
-                android:textSize="@dimen/text_size_16sp"
+                android:text="9"
                 android:textAllCaps="false"
-                app:cornerRadius="@dimen/margin_10dp"
-                android:fontFamily="@font/barlow_medium"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp"
+                app:backgroundTint="@color/pomegranate"
+                app:cornerRadius="@dimen/margin_10dp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvStudentAssignmentDesc"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="assignment_deadline"
-                android:textSize="@dimen/text_size_14sp"
-                android:textColor="@color/dove_gray"
-                android:gravity="start"
-                android:layout_gravity="center"
                 android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:fontFamily="@font/barlow_medium"/>
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStudentAssignmentDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/barlow_medium"
+                    android:gravity="start"
+                    android:text="assignment_deadline"
+                    android:maxLines="10"
+                    android:ellipsize="end"
+                    android:textColor="@color/dove_gray"
+                    android:textSize="@dimen/text_size_14sp" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:fontFamily="@font/barlow_medium"
+                    android:gravity="start"
+                    android:text="End Date : 18/01/2021"
+                    android:textColor="@color/grey6"
+                    android:textSize="@dimen/text_size_12sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.mytodo.mytodo.ui.main.sidemenu.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -178,8 +179,7 @@ class fragment_addtask : BaseFragment()
             datePicker.addOnPositiveButtonClickListener {
                 val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
                 calendar.time = Date(it)
-                val tim = "${calendar.get(Calendar.DAY_OF_MONTH)}- " +
-                        "${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}"
+                val tim = "${calendar.get(Calendar.DAY_OF_MONTH)}-${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}"
 
                 tvEndDate.setText(tim)
             }
@@ -214,6 +214,7 @@ class fragment_addtask : BaseFragment()
             else
             {
                 try {
+
                     val rnds = (0..1000).random()
                     dataModel!!.id = rnds
                     dataModel!!.title = tempTitle
@@ -242,6 +243,7 @@ class fragment_addtask : BaseFragment()
                     activity?.onBackPressed()
 
                 }catch (e:Exception){
+                    Log.e("TAG", "setupUI: $e" )
                     Toaster.showToast(requireContext(),"Something went wrong", Toaster.State.ERROR, Toast.LENGTH_SHORT)
                 }
             }

@@ -137,6 +137,7 @@ class LoginFragment : BaseFragment()
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+        showProgress()
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -144,15 +145,17 @@ class LoginFragment : BaseFragment()
                     Log.e("TAG", "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    dismissProgress()
                 } else {
                     Log.e("TAG", "signInWithCredential:failure", task.exception)
-
+                    dismissProgress()
                 }
             }
     }
 
     private fun updateUI(user: FirebaseUser?)
     {
+        showProgress()
         prefUserID = user!!.uid
         prefUserDisplayName = user.displayName
         prefUserProfilePic = user.photoUrl.toString()
@@ -161,12 +164,13 @@ class LoginFragment : BaseFragment()
         val intent = Intent(requireContext(), DashboardActivity::class.java)
         startActivity(intent)
         finishAffinity(requireActivity())
-
+        dismissProgress()
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.e("TAG", "handleFacebookAccessToken:$token")
 
+        showProgress()
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -175,10 +179,12 @@ class LoginFragment : BaseFragment()
                     val user = auth.currentUser
                     updateUI(user)
                     LoginManager.getInstance().logOut()
+                    dismissProgress()
                 } else {
                     Log.e("TAG", "signInWithCredential:failure", task.exception)
                     Toast.makeText(requireActivity(), "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
+                    dismissProgress()
                 }
             }
     }

@@ -23,7 +23,7 @@
                 android:layout_gravity="end"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                android:layout_marginStart="@dimen/margin_40dp"
+                android:layout_marginStart="@dimen/margin_100dp"
                 app:lottie_rawRes="@raw/swipe_left" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/barlow_semibold"
                 android:gravity="center"
-                android:text="Swipe to see actions"
+                android:text="Swipe each tasks to see actions"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_16sp" />
 

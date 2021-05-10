@@ -5,20 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mytodo.mytodo.databinding.RecycleNotificationListItemBinding
+import com.mytodo.mytodo.ui.main.sidemenu.realm.model.TaskModel
+import io.realm.RealmResults
 
 
-class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHold>()
+class NotificationAdapter(private var completedList: RealmResults<TaskModel>) : RecyclerView.Adapter<NotificationAdapter.ViewHold>()
 {
     private var context: Context? = null
-    private val taskList1 = listOf(
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-
-        )
-
 
     class ViewHold(var binding : RecycleNotificationListItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -31,11 +24,14 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHold>()
 
     override fun getItemCount(): Int
     {
-        return taskList1.size
+        return completedList.size
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int)
     {
+        holder.binding.tvNotificationTitle.text = completedList[position]!!.title
+        holder.binding.tvNotificationDate.text = completedList[position]!!.endDate.toString()
+        holder.binding.tvNotificationMessage.text = completedList[position]!!.description
 
     }
 }

@@ -77,13 +77,13 @@ class fragment_dashboard : BaseFragment() {
             binding.rvDashboard.adapter = DashBoardAdapter(taskList)
 
 
-
         }catch (e: Exception) {
             Log.e("TAG", "initData: $e")
             Toaster.showToast(requireContext(),"Something went wrong", Toaster.State.ERROR, Toast.LENGTH_SHORT)
         }
 
     }
+
 
     override fun setupUI() {
     }

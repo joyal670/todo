@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My ToDo</string>
+    <string name="app_name">ToDo</string>
     <string name="tvSkip">Skip</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -17,5 +17,8 @@
 
     <string name="facebook_app_id">1840783956096090</string>
     <string name="fb_login_protocol_scheme">fb1840783956096090</string>
+
+
+    <string name="default_notification_channel_id">alarm_channel_id_01</string>
 
 </resources>

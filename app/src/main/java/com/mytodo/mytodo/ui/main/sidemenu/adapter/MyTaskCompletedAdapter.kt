@@ -6,20 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mytodo.mytodo.databinding.RecycleMytaskCompletedListItemBinding
+import com.mytodo.mytodo.ui.main.sidemenu.realm.model.TaskModel
+import io.realm.RealmResults
 
 
-class MyTaskCompletedAdapter : RecyclerView.Adapter<MyTaskCompletedAdapter.ViewHold>()
+class MyTaskCompletedAdapter(private var completedList: RealmResults<TaskModel>,  private val deleteTask: (Int) -> Unit) : RecyclerView.Adapter<MyTaskCompletedAdapter.ViewHold>()
 {
     private var context: Context? = null
-    private val taskList1 = listOf(
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-
-        )
-
 
     class ViewHold(var binding : RecycleMytaskCompletedListItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -32,7 +25,7 @@ class MyTaskCompletedAdapter : RecyclerView.Adapter<MyTaskCompletedAdapter.ViewH
 
     override fun getItemCount(): Int
     {
-        return taskList1.size
+        return completedList.size
     }
 
     override fun onBindViewHolder(holder: ViewHold, position: Int)
@@ -47,5 +40,17 @@ class MyTaskCompletedAdapter : RecyclerView.Adapter<MyTaskCompletedAdapter.ViewH
             holder.binding.MyTaskCompletedAdapterTasktime.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.binding.MyTaskCompletedAdapterTaskDesc.paintFlags =
             holder.binding.MyTaskCompletedAdapterTaskDesc.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
+        holder.binding.MyTaskCompletedAdapterTaskName.text = completedList[position]!!.title
+        holder.binding.MyTaskCompletedAdapterTaskDate.text = completedList[position]!!.endDate.toString()
+        holder.binding.MyTaskCompletedAdapterTasktime.text = completedList[position]!!.endTime
+        holder.binding.MyTaskCompletedAdapterTaskDesc.text = completedList[position]!!.description
+
+        holder.binding.deleteLayout.setOnClickListener {
+            deleteTask.invoke(completedList[position]!!.id)
+        }
+
     }
+
+
 }

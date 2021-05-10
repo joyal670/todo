@@ -3,42 +3,45 @@ package com.mytodo.mytodo.ui.main.sidemenu.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mytodo.mytodo.databinding.RecycleMytaskListItemBinding
+import com.mytodo.mytodo.ui.main.sidemenu.realm.model.TaskModel
+import io.realm.RealmResults
 
 
-class MyTaskPendingAdapter : RecyclerView.Adapter<MyTaskPendingAdapter.ViewHold>()
-{
+class MyTaskPendingAdapter(
+    private var unCompletedList: RealmResults<TaskModel>?,
+    private val deleteTask: (Int) -> Unit,
+    private val completeTask: (Int) -> Unit
+) : RecyclerView.Adapter<MyTaskPendingAdapter.ViewHold>() {
     private var context: Context? = null
-    private val taskList1 = listOf(
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
-        "Assignment Deadline",
 
-        )
+    class ViewHold(var binding: RecycleMytaskListItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-
-    class ViewHold(var binding : RecycleMytaskListItemBinding): RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHold
-    {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHold {
         context = parent.context
         val view = RecycleMytaskListItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHold(view)
     }
 
-    override fun getItemCount(): Int
-    {
-        return taskList1.size
+    override fun getItemCount(): Int {
+        return unCompletedList!!.size
     }
 
-    override fun onBindViewHolder(holder: ViewHold, position: Int)
-    {
+    override fun onBindViewHolder(holder: ViewHold, position: Int) {
+
+        holder.binding.taskName.text = unCompletedList!![position]!!.title
+        holder.binding.startDate.text = unCompletedList!![position]!!.startDate.toString()
+        holder.binding.startTime.text = unCompletedList!![position]!!.startTime
+        holder.binding.tvDesc.text = unCompletedList!![position]!!.description
+
         holder.binding.deleteLayout.setOnClickListener {
-            Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show()
+            deleteTask.invoke(unCompletedList!![position]!!.id)
+        }
+
+        holder.binding.completeLayout.setOnClickListener {
+            completeTask.invoke(unCompletedList!![position]!!.id)
         }
     }
 }

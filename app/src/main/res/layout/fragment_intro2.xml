@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
+        android:text="Set a date and time to both start and end tasks and don’t let another due date pass you by."
         android:textColor="@color/gray"
         android:textSize="@dimen/text_size_14sp"
         android:fontFamily="@font/barlow_medium"

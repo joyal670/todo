@@ -29,6 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="NotificationTitle"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:fontFamily="@font/barlow_semibold"
                 android:textColor="@color/light_black1"
                 android:textSize="@dimen/text_size_12sp"/>

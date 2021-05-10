@@ -7,8 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
     app:strokeWidth="@dimen/margin_1dp"
-    android:layout_margin="@dimen/margin_7dp"
-    app:strokeColor="@color/textView_grey">
+    android:layout_margin="@dimen/margin_4dp"
+    app:strokeColor="@color/gray">
 
     <LinearLayout
         android:layout_width="wrap_content"

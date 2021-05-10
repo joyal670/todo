@@ -34,6 +34,9 @@ class fragment_about : BaseFragment() {
     }
 
     override fun onClicks() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.setRefreshing(false)
+        }
     }
 
 }

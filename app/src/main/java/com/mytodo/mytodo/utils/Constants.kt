@@ -25,4 +25,10 @@ object Constants {
     const val REQUEST_UNAUTHORIZED=401
     const val REQUEST_OK_NEW=1
 
+    const val TASK_NAME = "task_name"
+    const val TASK_ID = "task_id"
+    const val TASK_STARTDATE = "task_startdate"
+    const val TASK_ENDDATE = "task_enddate"
+    const val TASK_DESCRIPTION = "task_description"
+
 }

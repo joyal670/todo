@@ -1,5 +1,6 @@
 package com.mytodo.mytodo.ui.main.sidemenu.activity
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.mytodo.mytodo.R
 import com.mytodo.mytodo.base.BaseActivity
@@ -11,7 +12,8 @@ import com.mytodo.mytodo.utils.Constants.TASKTYPE
 import com.mytodo.mytodo.utils.EnumFromPage
 import com.mytodo.mytodo.utils.replaceFragment
 
-class MyTaskActivity : BaseActivity<ActivityMyTaskBinding>(), ActivityListener {
+class MyTaskActivity : BaseActivity<ActivityMyTaskBinding>(), ActivityListener
+{
     override val layoutId: Int
         get() = R.layout.activity_my_task
     override val setToolbar: Boolean
@@ -35,6 +37,8 @@ class MyTaskActivity : BaseActivity<ActivityMyTaskBinding>(), ActivityListener {
             EnumFromPage.ADD_TASK.name -> {
                 replaceFragment(fragment = fragment_addtask())
             }
+
+
         }
 
     }
